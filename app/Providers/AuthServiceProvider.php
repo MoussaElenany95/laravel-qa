@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\QuestionPolicy;
+use App\Question;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+       Question::class => QuestionPolicy::class,
     ];
 
     /**
@@ -24,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        /* Authorization using gates
         //For update question
         Gate::define('update-question',function ($user,$question){
            return $user->id == $question->user_id;
@@ -32,5 +36,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-question',function ($user,$question){
             return $user->id == $question->user_id && $question->answers == 0 ;
         });
+        */
     }
 }

@@ -34,12 +34,12 @@
                                 <div class="media-body">
                                     <div class="d-flex align-items-center">
                                         <h3 class="mt-0"><a href="{{$question->url}}">{{$question->title}}</a></h3>
-                                        @can('update-question',$question)
+                                        @can('update',$question)
                                             <div class="ml-auto">
                                                 <a href="{{route('questions.edit',$question->id)}}" class="btn btn-outline-primary btn-sm">Edit</a>
                                             </div>
                                         @endcan
-                                        @can('delete-question',$question)
+                                        @can('delete',$question)
                                             <div class="ml-2">
                                                 <form method="post" action="{{route('questions.destroy',$question->id)}}">
                                                     {{method_field('DELETE')}}
