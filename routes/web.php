@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return password_hash("123456789",PASSWORD_DEFAULT);
+//    return view('welcome');
 });
 
 Auth::routes();
