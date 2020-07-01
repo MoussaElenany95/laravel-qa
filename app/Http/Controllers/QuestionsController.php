@@ -84,11 +84,12 @@ class QuestionsController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(AskQuestionRequest $request, Question $question)
+    public function update( AskQuestionRequest $request, Question $question)
     {
         if(!$this->authorize('update',$question)){
             abort(403);
         }
+        $question->update($request->only('title','body'));
         return  redirect()->route('questions.index')->with('success','Your question has been updated');
 
     }
