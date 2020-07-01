@@ -13,6 +13,10 @@ class Question extends Model
     public  function user(){
         return $this->belongsTo(User::class);
     }
+    // one to many relationship between answers
+    public  function answers(){
+        return $this->hasMany(Answer::class);
+    }
     //set attributes for question
     public function setTitleAttribute($value){
         $this->attributes['title'] = $value;
@@ -28,7 +32,7 @@ class Question extends Model
     }
     //get question status
     public function getStatusAttribute(){
-        if($this->answers > 0){
+        if($this->answers_count > 0){
             if($this->best_answer_id)
                 return "answer-accepted";
             return "answered";
@@ -39,4 +43,5 @@ class Question extends Model
     public function getBodyHtmlAttribute(){
         return \Parsedown::instance()->text($this->body);
     }
+
 }
