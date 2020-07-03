@@ -37,3 +37,33 @@
         margin-top: 10px;
     }
 }
+.vote-controls{
+    min-width: 60px;
+    text-align: center;
+    margin-right: 30px;
+    color: $gray-700;
+    span , a{
+        display: block;
+    }
+    span{
+        &.votes-count{
+            font-size: 25px;
+        }
+        &.favorite-count{
+            font-size: 12px;
+        }
+    }
+    a{
+        cursor: pointer;
+        color: $gray-600;
+        &.off , &.off:hover{
+            color: $gray-500;
+        }
+        &.favorited {
+            color: $warning;
+        }
+        &.vote-accepted{
+            color: $green;
+        }
+    }
+}
