@@ -19,7 +19,14 @@ class Answer extends Model
     public  function question(){
         return $this->belongsTo(Question::class);
     }
-
+    //get answer date
+    public function getCreatedDateAttribute(){
+        return $this->created_at->diffForHumans();
+    }
+    //get answer body if it has html code
+    public function getBodyHtmlAttribute(){
+        return \Parsedown::instance()->text($this->body);
+    }
     public static function boot()
     {
         parent::boot();
