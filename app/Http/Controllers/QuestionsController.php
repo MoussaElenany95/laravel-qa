@@ -84,12 +84,20 @@ class QuestionsController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update( AskQuestionRequest $request, Question $question)
+    public function update( Request $request, Question $question)
     {
         if(!$this->authorize('update',$question)){
             abort(403);
         }
-        $question->update($request->only('title','body'));
+        //update question
+        $question->update(
+
+            $request->validate([
+
+                'title'=>'required|max:255|unique:questions,title,'.$question->id,
+                'body'=>'required',
+            ])
+        );
         return  redirect()->route('questions.index')->with('success','Your question has been updated');
 
     }

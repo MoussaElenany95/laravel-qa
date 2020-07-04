@@ -8,7 +8,7 @@ use function foo\func;
 class Answer extends Model
 {
     protected $fillable = [
-        'body'
+        'body','user_id'
     ];
 
     //Belongs to user
@@ -30,7 +30,7 @@ class Answer extends Model
     public static function boot()
     {
         parent::boot();
-
+        //when create answer make answers count + 1
         static::created(function($answer){
             $answer->question->increment('answers_count');
         });
