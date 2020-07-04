@@ -27,6 +27,10 @@ class Answer extends Model
     public function getBodyHtmlAttribute(){
         return \Parsedown::instance()->text($this->body);
     }
+    //answer accepted or not
+    public function getStatusAttribute(){
+        return $this->id == $this->question->best_answer_id ? 'vote-accepted' : '' ;
+    }
     public static function boot()
     {
         parent::boot();

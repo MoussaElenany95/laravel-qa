@@ -15,7 +15,6 @@
                             </div>
                         </div>
                         <hr>
-
                         <div class="media">
                             <div class="d-flex flex-column  vote-controls">
                                 <a href="" title="This question is useful" class="vote-up">
