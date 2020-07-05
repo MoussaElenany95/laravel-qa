@@ -43,5 +43,17 @@ class Question extends Model
     public function getBodyHtmlAttribute(){
         return \Parsedown::instance()->text($this->body);
     }
+    //Accept best answer
+    public function acceptBestAnswer(Answer $answer){
+        if( $this->best_answer_id != $answer->id )
+
+            $this->best_answer_id = $answer->id;
+
+        else
+            $this->best_answer_id = NULL;         //Undo accept answer
+
+
+        $this->save();
+    }
 
 }

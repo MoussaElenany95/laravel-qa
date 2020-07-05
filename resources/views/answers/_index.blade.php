@@ -17,9 +17,25 @@
                             <a href="" title="This answer is not useful" class="vote-down off">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
-                            <a href="" class="favorite mt-2 {{$answer->status}}" title="Accept this answer ( click again to undo ) ">
-                                <i class="fas fa-check fa-2x"></i>
-                            </a>
+                            @can('accept',$answer)
+                                <a href="" title="Accept this answer ( click again to undo ) "
+                                   class="mt-2 {{$answer->status ? 'vote-accepted':''}}"
+                                   onclick="event.preventDefault(); document.getElementById('accept-answer-{{$answer->id}}').submit(); "
+                                >
+                                    <i class="fas fa-check fa-2x"></i>
+                                </a>
+                                {{--accept answer form--}}
+                                <form id="accept-answer-{{$answer->id}}" action="{{route('answers.accept',$answer->id)}}" method="POST">
+                                     @csrf
+                                </form>
+                            @else
+                                @if($answer->status)
+                                    <a title="this answer was accepted as best answer  "
+                                       class="mt-2 {{$answer->status ? 'vote-accepted':''}}">
+                                        <i class="fas fa-check fa-2x"></i>
+                                    </a>
+                                @endif
+                            @endcan
                         </div>
                         <div class="media-body">
                             {!! $answer->body_html !!}
