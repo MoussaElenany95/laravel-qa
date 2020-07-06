@@ -17,6 +17,21 @@ class Question extends Model
     public  function answers(){
         return $this->hasMany(Answer::class);
     }
+    // many to many relationship between users
+    public function favorites(){
+        return $this->belongsToMany(User::class,'favorites')->withTimestamps();
+    }
+    // is favoritted
+    public function isFavorited(){
+
+        return $this->favorites()->where('user_id', auth()->id() )->count() > 0 ;
+    }
+    public function getFavorittedAttribute(){
+        return $this->isFavorited();
+    }
+    public function getFavoritesCountAttribute(){
+        return $this->favorites()->count();
+    }
     //set attributes for question
     public function setTitleAttribute($value){
         $this->attributes['title'] = $value;

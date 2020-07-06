@@ -24,10 +24,15 @@
                                 <a href="" title="This question is not useful" class="vote-down off">
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
-                                <a href="" class="favorite mt-2 favorited" title="mark as favorite ( click again to undo ) ">
+                                <a href="" class="favorite mt-2 {{$question->favoritted?'favorited':''}}" title="mark as favorite ( click again to undo ) "
+                                   onclick="event.preventDefault(); document.getElementById('favorite-form').submit();"
+                                >
                                     <i class="fas fa-star fa-2x"></i>
-                                    <span class="favorite-count">123</span>
+                                    <span class="favorite-count">{{$question->favorites_count}}</span>
                                 </a>
+                                <form id="favorite-form" action="{{route('questions.favorite',$question)}}" method="post">
+                                    @csrf
+                                </form>
                             </div>
                             <div class="media-body">
                                 {!! $question->body_html !!}

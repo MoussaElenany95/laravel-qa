@@ -30,7 +30,7 @@
                                 </form>
                             @else
                                 @if($answer->status)
-                                    <a title="this answer was accepted as best answer  "
+                                    <a title="this answer was accepted as the best answer  "
                                        class="mt-2 {{$answer->status ? 'vote-accepted':''}}">
                                         <i class="fas fa-check fa-2x"></i>
                                     </a>
