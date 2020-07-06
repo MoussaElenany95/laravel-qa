@@ -19,6 +19,18 @@ class Answer extends Model
     public  function question(){
         return $this->belongsTo(Question::class);
     }
+    // many to many polymorphic relationship (user & question)
+    public function votes(){
+        return $this->morphToMany(User::class,'votable');
+    }
+    //Up votes
+    public function upVotes(){
+        return $this->votes()->wherePivot('vote',1)->sum('vote');
+    }
+    //Down votes
+    public function downVotes(){
+        return $this->votes()->wherePivot('vote',-1)->sum('vote');
+    }
     //get answer date
     public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();

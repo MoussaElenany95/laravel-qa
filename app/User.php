@@ -56,4 +56,49 @@ class User extends Authenticatable
 
         return $this->belongsToMany(Question::class,'favorites');
     }
+    // many to many polymorphic relationship (question & answer)
+    public function voteQuestions(){
+        return $this->morphedByMany(Question::class,'votable');
+    }
+    public function voteAnswers(){
+        return $this->morphedByMany(Answer::class,'votable');
+    }
+    //vote question
+    public function voteQuestion(Question $question , $vote){
+
+        $voteQuestions = $this->voteQuestions();
+
+        if ($voteQuestions->where('votable_id',$question->id)->exists() )
+            $voteQuestions->updateExistingPivot($question,['vote'=>$vote]);
+        else
+            $voteQuestions->attach($question,['vote'=>$vote]);
+
+        $question->load('votes');
+        $upVotes = $question->upVotes();
+        $downVotes = $question->downVotes();
+
+        $question->votes_count  = $upVotes + $downVotes;
+        $question->save();
+
+    }
+    //vote answer
+    public function voteAnswer(Answer $answer , $vote){
+
+        $voteAnswers = $this->voteAnswers();
+
+        if($voteAnswers->where('votable_id',$answer->id)->exists() )
+            $voteAnswers->updateExistingPivot($answer,['vote'=>$vote]);
+        else
+            $voteAnswers->attach($answer,['vote'=>$vote]);
+
+        $answer->load('votes');
+        $upVotes = (int) $answer->upVotes();
+        $downVotes = (int) $answer->downVotes();
+
+        $answer->votes_count  = $upVotes + $downVotes;
+        $answer->save();
+
+    }
+
+
 }

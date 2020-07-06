@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('questions','QuestionsController')->except('show');
 Route::resource('questions.answers','AnswersController');
 
-Route::post('answers/{answer}/accept','AcceptAnswerController')->name('answers.accept');
-Route::post('questions/{question}/favorite','FavoriteQuestionController')->name('questions.favorite');
+Route::post('/answers/{answer}/accept','AcceptAnswerController')->name('answers.accept');
+Route::post('/questions/{question}/favorite','FavoriteQuestionController')->name('questions.favorite');
+Route::post('/questions/{question}/vote','VoteQuestionController')->name('questions.vote');
 Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show');

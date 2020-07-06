@@ -17,11 +17,15 @@
                         <hr>
                         <div class="media">
                             <div class="d-flex flex-column  vote-controls">
-                                <a href="" title="This question is useful" class="vote-up">
+                                <a href="" title="This question is useful" class="vote-up {{ $question->votted_up?'off':''}}"
+                                    onclick="event.preventDefault(); document.getElementById('vote-question-up-form-{{$question->id}}').submit();"
+                                >
                                     <i class="fas fa-caret-up fa-3x"></i>
                                 </a>
-                                <span class="votes-count">1230</span>
-                                <a href="" title="This question is not useful" class="vote-down off">
+                                <span class="votes-count">{{$question->votes_count}}</span>
+                                <a href="" title="This question is not useful" class="vote-down {{ $question->votted_down?'off':''}}"
+                                   onclick="event.preventDefault(); document.getElementById('vote-question-down-form-{{$question->id}}').submit();"
+                                >
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
                                 <a href="" class="favorite mt-2 {{$question->favoritted?'favorited':''}}" title="mark as favorite ( click again to undo ) "
@@ -30,6 +34,14 @@
                                     <i class="fas fa-star fa-2x"></i>
                                     <span class="favorite-count">{{$question->favorites_count}}</span>
                                 </a>
+                                <form id="vote-question-up-form-{{$question->id}}" method="post" action="{{route('questions.vote',$question)}}">
+                                    @csrf
+                                    <input type="hidden" value="1" name="vote">
+                                </form>
+                                <form id="vote-question-down-form-{{$question->id}}" method="post" action="{{route('questions.vote',$question)}}">
+                                    @csrf
+                                    <input type="hidden" value="-1" name="vote">
+                                </form>
                                 <form id="favorite-form" action="{{route('questions.favorite',$question)}}" method="post">
                                     @csrf
                                 </form>
