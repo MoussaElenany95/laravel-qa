@@ -18,7 +18,7 @@ class Question extends Model
     }
     // one to many relationship between answers
     public  function answers(){
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->orderBy('votes_count','desc');
     }
     // many to many relationship between users
     public function favorites(){
