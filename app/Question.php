@@ -41,6 +41,12 @@ class Question extends Model
     public function isVottedDown(){
         return $this->votes()->where(['user_id'=> auth()->id() ,'vote'=> -1 ])->exists();
     }
+    public function getVottedUpAttribute(){
+        return $this->isVottedUp();
+    }
+    public function getVottedDownAttribute(){
+        return $this->isVottedDown();
+    }
     // is favoritted
     public function isFavorited(){
 
@@ -48,12 +54,6 @@ class Question extends Model
     }
     public function getFavorittedAttribute(){
         return $this->isFavorited();
-    }
-    public function getVottedUpAttribute(){
-        return $this->isVottedUp();
-    }
-    public function getVottedDownAttribute(){
-        return $this->isVottedDown();
     }
     public function getFavoritesCountAttribute(){
         return $this->favorites()->count();

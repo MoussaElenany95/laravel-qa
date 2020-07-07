@@ -10991,6 +10991,7 @@ a.text-dark:focus {
 .vote-controls a.off,
 .vote-controls a.off:hover {
   color: #adb5bd;
+  cursor: default;
 }
 
 .vote-controls a.favorited {

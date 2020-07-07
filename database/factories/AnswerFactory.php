@@ -9,6 +9,5 @@ $factory->define(App\Answer::class, function (Faker $faker) {
     return [
         'body' => rtrim($faker->paragraphs(rand(3,7),true)),
         'user_id'=> App\User::all('id')->random(),
-        'votes_count' => rand(1,5),
     ];
 });

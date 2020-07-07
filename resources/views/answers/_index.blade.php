@@ -10,13 +10,25 @@
 
                     <div class="media">
                         <div class="d-flex flex-column  vote-controls">
-                            <a href="" title="This answer is useful" class="vote-up">
+                            <a href="" title="This answer is useful" class="vote-up {{$answer->votted_up ?'off':''}}"
+                               onclick="event.preventDefault(); document.getElementById('vote-answer-up-form-{{$answer->id}}').submit();"
+                            >
                                 <i class="fas fa-caret-up fa-3x"></i>
                             </a>
-                            <span class="votes-count">1230</span>
-                            <a href="" title="This answer is not useful" class="vote-down off">
+                            <span class="votes-count">{{$answer->votes_count}}</span>
+                            <a href="" title="This answer is not useful" class="vote-down {{$answer->votted_down ?'off':''}}"
+                               onclick="event.preventDefault(); document.getElementById('vote-answer-down-form-{{$answer->id}}').submit();"
+                            >
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
+                            <form id="vote-answer-up-form-{{$answer->id}}" method="post" action="{{route('answers.vote',$answer)}}">
+                                @csrf
+                                <input type="hidden" value="1" name="vote">
+                            </form>
+                            <form id="vote-answer-down-form-{{$answer->id}}" method="post" action="{{route('answers.vote',$answer)}}">
+                                @csrf
+                                <input type="hidden" value="-1" name="vote">
+                            </form>
                             @can('accept',$answer)
                                 <a href="" title="Accept this answer ( click again to undo ) "
                                    class="mt-2 {{$answer->status ? 'vote-accepted':''}}"

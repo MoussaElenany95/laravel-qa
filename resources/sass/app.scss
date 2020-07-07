@@ -58,6 +58,7 @@
         color: $gray-600;
         &.off , &.off:hover{
             color: $gray-500;
+            cursor: default;
         }
         &.favorited {
             color: $warning;

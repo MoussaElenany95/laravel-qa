@@ -31,6 +31,21 @@ class Answer extends Model
     public function downVotes(){
         return $this->votes()->wherePivot('vote',-1)->sum('vote');
     }
+    //is VottedUp
+    public function isVottedUp(){
+        return $this->votes()->where(['user_id'=> auth()->id() ,'vote'=> 1 ])->exists();
+    }
+
+    //is VottedDown
+    public function isVottedDown(){
+        return $this->votes()->where(['user_id'=> auth()->id() ,'vote'=> -1 ])->exists();
+    }
+    public function getVottedUpAttribute(){
+        return $this->isVottedUp();
+    }
+    public function getVottedDownAttribute(){
+        return $this->isVottedDown();
+    }
     //get answer date
     public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();
