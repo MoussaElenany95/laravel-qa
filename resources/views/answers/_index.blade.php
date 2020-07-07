@@ -9,7 +9,7 @@
                     <hr>
                     @foreach($answers as $answer )
 
-                        <div class="media">
+                        <div class="media post">
                             <div class="d-flex flex-column  vote-controls">
                                 <a href="" title="This answer is useful" class="vote-up {{$answer->votted_up ?'off':''}}"
                                    onclick="event.preventDefault(); document.getElementById('vote-answer-up-form-{{$answer->id}}').submit();"
@@ -87,7 +87,6 @@
 
                             </div>
                         </div>
-                        <hr>
                     @endforeach
                 </div>
             </div>

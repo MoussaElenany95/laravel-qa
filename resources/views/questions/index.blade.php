@@ -19,7 +19,7 @@
                         @include('layouts._messages')
 
                         @forelse($questions as $question )
-                            <div class="media">
+                            <div class="media post">
                                 <div class="d-flex flex-column counters">
                                     <div class="vote">
                                         <strong> {{ $question->votes_count }} </strong>{{ \Illuminate\Support\Str::plural("vote",$question->votes_count) }}
@@ -54,16 +54,15 @@
                                         Asked by <a href="{{$question->user->url}}">{{$question->user->name}}</a>
                                         <small class="text-muted">{{$question->created_date}}</small>
                                     </p>
-                                    {{\Illuminate\Support\Str::limit( $question->body_html,250)}}
+                                    {{\Illuminate\Support\Str::limit( $question->body_html,300)}}
                                 </div>
                             </div>
-                            <hr>
                         @empty
                             <div class="alert alert-warning">
                                 <strong>Sorry !</strong> , There are no questions available .
                             </div>
                         @endforelse
-                        <div class="text-center">
+                        <div class="text-center mt-4">
                             {{$questions->links()}}
                         </div>
                     </div>
