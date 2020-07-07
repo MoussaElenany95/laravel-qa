@@ -25,7 +25,8 @@ class Answer extends Model
     }
     //get answer body if it has html code
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+        $body = \Parsedown::instance()->text($this->body);
+        return strip_tags($body);
     }
     //answer accepted or not
     public function getStatusAttribute(){

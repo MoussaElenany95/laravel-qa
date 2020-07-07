@@ -48,20 +48,26 @@
                             </div>
                             <div class="media-body">
                                 {!! $question->body_html !!}
-                                <div class="float-right">
-                                    <span class="text-muted">{{$question->created_date}}</span>
-                                    <div class="media mt-2">
-                                        <a href="{{$question->user->url}}" class="pr-2">
-                                            <img src="{{$question->user->avatar}}" alt="">
-                                        </a>
-                                        <div class="media-body mt-2">
-                                            <a href="{{$question->user->url}}">
-                                                {{$question->user->name}}
+                                <div class="row mt-2">
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <span class="text-muted">{{$question->created_date}}</span>
+                                        <div class="media mt-2">
+                                            <a href="{{$question->user->url}}" class="pr-2">
+                                                <img src="{{$question->user->avatar}}" alt="">
                                             </a>
+                                            <div class="media-body mt-2">
+                                                <a href="{{$question->user->url}}">
+                                                    {{$question->user->name}}
+                                                </a>
+                                            </div>
                                         </div>
+
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
                         @include('layouts._messages')

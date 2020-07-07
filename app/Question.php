@@ -59,7 +59,8 @@ class Question extends Model
     }
     //get question body if it has html code
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+        $body = \Parsedown::instance()->text($this->body);
+        return strip_tags($body);
     }
     //Accept best answer
     public function acceptBestAnswer(Answer $answer){
