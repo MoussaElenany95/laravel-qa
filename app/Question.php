@@ -7,6 +7,9 @@ use Illuminate\Support\Str;
 
 class Question extends Model
 {
+
+    use VotableTrait;
+
     protected $fillable = ['title','body'];
 
     // one to many relationship between user table
@@ -20,32 +23,6 @@ class Question extends Model
     // many to many relationship between users
     public function favorites(){
         return $this->belongsToMany(User::class,'favorites')->withTimestamps();
-    }
-    // many to many polymorphic relationship (user & answer)
-    public function votes(){
-        return $this->morphToMany(User::class,'votable');
-    }
-    //Up votes
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote',1)->sum('vote');
-    }
-    //Down votes
-    public function downVotes(){
-        return $this->votes()->wherePivot('vote',-1)->sum('vote');
-    }
-    //is VottedUp
-    public function isVottedUp(){
-        return $this->votes()->where(['user_id'=> auth()->id() ,'vote'=> 1 ])->exists();
-    }
-    //is VottedDown
-    public function isVottedDown(){
-        return $this->votes()->where(['user_id'=> auth()->id() ,'vote'=> -1 ])->exists();
-    }
-    public function getVottedUpAttribute(){
-        return $this->isVottedUp();
-    }
-    public function getVottedDownAttribute(){
-        return $this->isVottedDown();
     }
     // is favoritted
     public function isFavorited(){
