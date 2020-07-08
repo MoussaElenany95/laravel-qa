@@ -1,3 +1,10 @@
+{{--@foreach($question->answers as $answer)--}}
+{{--    @foreach($answer->votes as $vote)--}}
+{{--        {{--}}
+{{--            die($vote->get('id'))--}}
+{{--        }}--}}
+{{--    @endforeach--}}
+{{--@endforeach--}}
 @extends('layouts.app')
 
 @section('content')
@@ -17,13 +24,13 @@
                         <hr>
                         <div class="media">
                             <div class="d-flex flex-column  vote-controls">
-                                <a href="" title="This question is useful" class="vote-up {{ $question->votted_up?'off':''}}"
+                                <a href="" title="This question is useful" class="vote-up"
                                     onclick="event.preventDefault(); document.getElementById('vote-question-up-form-{{$question->id}}').submit();"
                                 >
                                     <i class="fas fa-caret-up fa-3x"></i>
                                 </a>
                                 <span class="votes-count">{{$question->votes_count}}</span>
-                                <a href="" title="This question is not useful" class="vote-down {{ $question->votted_down?'off':''}}"
+                                <a href="" title="This question is not useful" class="vote-down"
                                    onclick="event.preventDefault(); document.getElementById('vote-question-down-form-{{$question->id}}').submit();"
                                 >
                                     <i class="fas fa-caret-down fa-3x"></i>
@@ -52,18 +59,8 @@
                                     <div class="col-4"></div>
                                     <div class="col-4"></div>
                                     <div class="col-4">
-                                        <span class="text-muted">{{$question->created_date}}</span>
-                                        <div class="media mt-2">
-                                            <a href="{{$question->user->url}}" class="pr-2">
-                                                <img src="{{$question->user->avatar}}" alt="">
-                                            </a>
-                                            <div class="media-body mt-2">
-                                                <a href="{{$question->user->url}}">
-                                                    {{$question->user->name}}
-                                                </a>
-                                            </div>
-                                        </div>
-
+                                        {{-- User info component --}}
+                                        <user-info :model="{{$question}}" label="Asked "></user-info>
                                     </div>
 
                                 </div>

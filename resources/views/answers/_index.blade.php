@@ -11,13 +11,13 @@
 
                         <div class="media post">
                             <div class="d-flex flex-column  vote-controls">
-                                <a href="" title="This answer is useful" class="vote-up {{$answer->votted_up ?'off':''}}"
+                                <a href="" title="This answer is useful" class="vote-up"
                                    onclick="event.preventDefault(); document.getElementById('vote-answer-up-form-{{$answer->id}}').submit();"
                                 >
                                     <i class="fas fa-caret-up fa-3x"></i>
                                 </a>
                                 <span class="votes-count">{{$answer->votes_count}}</span>
-                                <a href="" title="This answer is not useful" class="vote-down {{$answer->votted_down ?'off':''}}"
+                                <a href="" title="This answer is not useful" class="vote-down"
                                    onclick="event.preventDefault(); document.getElementById('vote-answer-down-form-{{$answer->id}}').submit();"
                                 >
                                     <i class="fas fa-caret-down fa-3x"></i>
@@ -71,17 +71,8 @@
                                     </div>
                                     <div class="col-4"></div>
                                     <div class="col-4">
-                                        <span class="text-muted">{{$answer->created_date}}</span>
-                                        <div class="media mt-2">
-                                            <a href="{{$answer->user->url}}" class="pr-2">
-                                                <img src="{{$answer->user->avatar}}" alt="">
-                                            </a>
-                                            <div class="media-body mt-2">
-                                                <a href="{{$answer->user->url}}">
-                                                    {{$answer->user->name}}
-                                                </a>
-                                            </div>
-                                        </div>
+                                        {{-- User info component --}}
+                                        <user-info :model="{{$answer}}" label="Asked "></user-info>
                                     </div>
                                 </div>
 
