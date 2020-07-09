@@ -85,7 +85,19 @@ class AnswersController extends Controller
         $answer->update($request->validate([
             'body'=>'required|min:5',
         ]));
-        return redirect()->route('questions.show',$question->slug)->with('success','your answer has been updated');
+
+        //For ajax request
+        if ($request->acceptsJson()){
+            return  response()->json([
+                'message'  => 'your answer has been updated',
+                'bodyHtml' => $answer->body_html,
+            ]);
+
+        }else{
+            return redirect()->route('questions.show',$question->slug)->with('success','your answer has been updated');
+
+        }
+
     }
 
     /**
