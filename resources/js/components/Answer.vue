@@ -14,17 +14,62 @@
         },
         methods:{
             update(){
-               this.editing = false;
                axios.patch(`/questions/${this.questionId}/answers/${this.answerId}`,
                    {'body': this.body}
                     )
                    .then( res =>{
                         this.bodyHtml = res.data.bodyHtml;
+                        this.beforeUpdateCash = this.body;
                         this.editing = false;
+                        this.$toast.success(res.data.message,'Success',{ timeout:3000 });
+
                    })
                    .catch(err =>{
-                       alert('Something went wrong !'+err.response.data.message)
+                       this.$toast.error(err.response.data.message,'Error',{ timeout:3000 });
                    });
+            },destroy(){
+                this.$toast.question('Are you sure to delete ? ','Delete',{
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999,
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', (instance, toast) => {
+                            axios.delete(`/questions/${this.questionId}/answers/${this.answerId}`)
+                                 .then(res => {
+                                     $(this.$el).stop().fadeOut();
+                                     this.$toast.success(res.data.message,'Success',{ timeout:3000 });
+
+                                 })
+                                 .catch( err => {
+
+                                     this.$toast.error(err.response.data.message,'Error',{ timeout:3000 });
+                                 });
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                        }],
+                    ],
+                });
+                // if(confirm('Are you sure to delete ? ')){
+                //     axios.delete(`/questions/${this.questionId}/answers/${this.answerId}`)
+                //          .then(res => {
+                //              $(this.$el).stop().fadeOut();
+                //              this.$toast.success(res.data.message,'Success',{ timeout:3000 });
+                //
+                //          })
+                //          .catch( err => {
+                //
+                //              this.$toast.error(err.response.data.message,'Error',{ timeout:3000 });
+                //          });
+                // }
             },
             cancel(){
                 this.editing = false;
@@ -36,7 +81,7 @@
         },
         computed:{
             isInvalid(){
-                return this.body.trim().length < 5 ;
+                return this.body.trim().length < 5 || this.beforeUpdateCash === this.body ;
             }
         }
     }
