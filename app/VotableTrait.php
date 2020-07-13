@@ -16,7 +16,7 @@ Trait VotableTrait{
     }
     //is VottedUp
     public function isVottedUp(){
-        return $this->votes;
+        return  $this->votes()->where(['user_id'=> auth()->id() ,'vote'=> 1 ])->exists();
     }
 
     //is VottedDown

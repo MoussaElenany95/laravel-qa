@@ -24,17 +24,11 @@
                 if (this.isSignedIn){
                     axios.post(`/questions/${this.questionId}/favorite`).then(res =>{
                             this.toggle();
-
                         }
                     )
                 }else {
                     window.location.href = '/login';
                 }
-            }
-        },
-        computed:{
-            classes(){
-                return ['favorite','mt-2',this.favorited ?'favorited':''];
             },
             toggle(){
                 return this.favorited ? this.destroy() : this.create();
@@ -46,6 +40,11 @@
             destroy(){
                 this.favoritesCount --;
                 this.favorited = false;
+            }
+        },
+        computed:{
+            classes(){
+                return ['favorite','mt-2',this.favorited ?'favorited':''];
             }
         }
     }

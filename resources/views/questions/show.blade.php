@@ -24,26 +24,8 @@
                         <hr>
                         <div class="media">
                             <div class="d-flex flex-column  vote-controls">
-                                <a href="" title="This question is useful" class="vote-up"
-                                    onclick="event.preventDefault(); document.getElementById('vote-question-up-form-{{$question->id}}').submit();"
-                                >
-                                    <i class="fas fa-caret-up fa-3x"></i>
-                                </a>
-                                <span class="votes-count">{{$question->votes_count}}</span>
-                                <a href="" title="This question is not useful" class="vote-down"
-                                   onclick="event.preventDefault(); document.getElementById('vote-question-down-form-{{$question->id}}').submit();"
-                                >
-                                    <i class="fas fa-caret-down fa-3x"></i>
-                                </a>
+                                <question-vote :question="{{$question}}"></question-vote>
                                 <favorite :question="{{$question}}"></favorite>
-                                <form id="vote-question-up-form-{{$question->id}}" method="post" action="{{route('questions.vote',$question)}}">
-                                    @csrf
-                                    <input type="hidden" value="1" name="vote">
-                                </form>
-                                <form id="vote-question-down-form-{{$question->id}}" method="post" action="{{route('questions.vote',$question)}}">
-                                    @csrf
-                                    <input type="hidden" value="-1" name="vote">
-                                </form>
                             </div>
                             <div class="media-body">
                                 {!! $question->body_html !!}

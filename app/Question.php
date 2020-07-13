@@ -11,7 +11,7 @@ class Question extends Model
     use VotableTrait;
 
     protected $fillable = ['title','body'];
-    protected $appends = ['created_date','favorites_count','favoritted'];
+    protected $appends = ['created_date','favorites_count','favoritted','votted_up','votted_down'];
     // one to many relationship between user table
     public  function user(){
         return $this->belongsTo(User::class);
