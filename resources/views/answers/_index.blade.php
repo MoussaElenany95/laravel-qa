@@ -12,36 +12,9 @@
                         <answer :answer="{{$answer}}" inline-template v-cloak>
                             <div class="media post">
                                 <div class="d-flex flex-column  vote-controls">
-                                    <a href="" title="This answer is useful" class="vote-up"
-                                       onclick="event.preventDefault(); document.getElementById('vote-answer-up-form-{{$answer->id}}').submit();"
-                                    >
-                                        <i class="fas fa-caret-up fa-3x"></i>
-                                    </a>
-                                    <span class="votes-count">{{$answer->votes_count}}</span>
-                                    <a href="" title="This answer is not useful" class="vote-down"
-                                       onclick="event.preventDefault(); document.getElementById('vote-answer-down-form-{{$answer->id}}').submit();"
-                                    >
-                                        <i class="fas fa-caret-down fa-3x"></i>
-                                    </a>
-                                    <form id="vote-answer-up-form-{{$answer->id}}" method="post" action="{{route('answers.vote',$answer)}}">
-                                        @csrf
-                                        <input type="hidden" value="1" name="vote">
-                                    </form>
-                                    <form id="vote-answer-down-form-{{$answer->id}}" method="post" action="{{route('answers.vote',$answer)}}">
-                                        @csrf
-                                        <input type="hidden" value="-1" name="vote">
-                                    </form>
+                                    <answer-vote :answer="{{$answer}}"></answer-vote>
                                     @can('accept',$answer)
-                                        <a href="" title="Accept this answer ( click again to undo ) "
-                                           class="mt-2 {{$answer->status ? 'vote-accepted':''}}"
-                                           onclick="event.preventDefault(); document.getElementById('accept-answer-{{$answer->id}}').submit(); "
-                                        >
-                                            <i class="fas fa-check fa-2x"></i>
-                                        </a>
-                                        {{--accept answer form--}}
-                                        <form id="accept-answer-{{$answer->id}}" action="{{route('answers.accept',$answer->id)}}" method="POST">
-                                            @csrf
-                                        </form>
+                                        <answer-accept :answer="{{$answer}}"></answer-accept>
                                     @else
                                         @if($answer->status)
                                             <a title="this answer was accepted as the best answer  "

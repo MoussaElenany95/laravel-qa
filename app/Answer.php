@@ -11,7 +11,7 @@ class Answer extends Model
     protected $fillable = [
         'body','user_id'
     ];
-    protected $appends = ['created_date','body_html'];
+    protected $appends = ['created_date','body_html','votted_up' ,'votted_down','status'];
     //Belongs to user
     public  function user(){
         return $this->belongsTo(User::class);
