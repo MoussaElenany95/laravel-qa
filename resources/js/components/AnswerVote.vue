@@ -18,7 +18,8 @@
             return{
                 votesCount:this.answer.votes_count,
                 answerId:this.answer.id,
-
+                vottedUp:this.answer.votted_up,
+                vottedDown:this.answer.votted_down,
             }
         },
         methods : {

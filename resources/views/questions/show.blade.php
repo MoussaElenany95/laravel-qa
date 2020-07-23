@@ -1,10 +1,3 @@
-{{--@foreach($question->answers as $answer)--}}
-{{--    @foreach($answer->votes as $vote)--}}
-{{--        {{--}}
-{{--            die($vote->get('id'))--}}
-{{--        }}--}}
-{{--    @endforeach--}}
-{{--@endforeach--}}
 @extends('layouts.app')
 
 @section('content')

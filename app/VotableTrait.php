@@ -4,7 +4,7 @@ Trait VotableTrait{
 
     // many to many polymorphic relationship (user & answer & question)
     public function votes(){
-        return $this->morphToMany(User::class,'votable');
+        return $this->morphToMany(User::class,'votable')->withPivot('vote');
     }
     //Up votes
     public function upVotes(){

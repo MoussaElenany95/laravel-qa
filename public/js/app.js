@@ -5657,8 +5657,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     acceptAnswer: function acceptAnswer() {
+      var _this = this;
+
       this.toggle();
-      axios.post("/answers/".concat(this.answerId, "/accept")).then(function (res) {});
+      axios.post("/answers/".concat(this.answerId, "/accept")).then(function (res) {
+        _this.$toast.success("Accept / Unaccept answer  ", 'Success', {
+          timeout: 3000,
+          position: "bottomCenter"
+        });
+      })["catch"](function (error) {
+        _this.$toast.error("Accept / Unaccept answer unknown error  ", 'Failed', {
+          timeout: 3000,
+          position: "bottomCenter"
+        });
+      });
     },
     toggle: function toggle() {
       return this.status ? this.destroy() : this.create();
@@ -5706,7 +5718,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       votesCount: this.answer.votes_count,
-      answerId: this.answer.id
+      answerId: this.answer.id,
+      vottedUp: this.answer.votted_up,
+      vottedDown: this.answer.votted_down
     };
   },
   methods: {

@@ -18,7 +18,9 @@
             acceptAnswer(){
                 this.toggle();
                 axios.post(`/answers/${this.answerId}/accept`).then(res =>{
-
+                    this.$toast.success("Accept / Unaccept answer  ",'Success',{timeout:3000,position:"bottomCenter"})
+                }).catch(error => {
+                    this.$toast.error("Accept / Unaccept answer unknown error  ",'Failed',{timeout:3000,position:"bottomCenter"})
                 })
             },
             toggle(){
