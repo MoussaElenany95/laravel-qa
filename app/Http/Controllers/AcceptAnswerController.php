@@ -17,7 +17,7 @@ class AcceptAnswerController extends Controller
         $this->authorize('accept',$answer);
         $answer->question->acceptBestAnswer($answer);
 
-        if (\request()->expectsJson()){
+        if ( request()->expectsJson() ){
             return response()->json(null,204);
         }
         return back();

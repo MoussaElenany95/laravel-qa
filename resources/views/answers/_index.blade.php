@@ -13,16 +13,8 @@
                             <div class="media post">
                                 <div class="d-flex flex-column  vote-controls">
                                     <answer-vote :answer="{{$answer}}"></answer-vote>
-                                    @can('accept',$answer)
-                                        <answer-accept :answer="{{$answer}}"></answer-accept>
-                                    @else
-                                        @if($answer->status)
-                                            <a title="this answer was accepted as the best answer  "
-                                               class="mt-2 {{$answer->status ? 'vote-accepted':''}}">
-                                                <i class="fas fa-check fa-2x"></i>
-                                            </a>
-                                        @endif
-                                    @endcan
+                                    <answer-accept :answer="{{$answer}}"></answer-accept>
+
                                 </div>
                                 <div class="media-body">
                                     <form v-if="editing" @submit.prevent="update">

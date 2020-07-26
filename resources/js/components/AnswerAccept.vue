@@ -1,7 +1,14 @@
 <template>
-    <a href="" title="Accept this answer ( click again to undo ) "  :class="classes" @click.prevent="acceptAnswer">
-        <i class="fas fa-check fa-2x"></i>
-    </a>
+    <div>
+        <a v-if="authorize('accept',answer)" href="" title="Accept this answer ( click again to undo ) "  :class="classes" @click.prevent="acceptAnswer">
+            <i class="fas fa-check fa-2x"></i>
+        </a>
+        <a v-else="accepted" title="this answer was accepted as the best answer  "
+           :class="classes">
+            <i class="fas fa-check fa-2x"></i>
+        </a>
+    </div>
+
 </template>
 
 <script>
@@ -10,8 +17,8 @@
         props:['answer'],
         data(){
             return{
-                answerId:this.answer.id,
-                status:this.answer.status,
+                answerId: this.answer.id,
+                status: this.answer.status,
             }
         },
         methods:{
@@ -39,6 +46,9 @@
                     'mt-2',
                      this.status?'vote-accepted':'',
                 ]
+            },
+            accepted(){
+                return this.status;
             }
         }
     }
