@@ -3,7 +3,7 @@
         <a v-if="authorize('accept',answer)" href="" title="Accept this answer ( click again to undo ) "  :class="classes" @click.prevent="acceptAnswer">
             <i class="fas fa-check fa-2x"></i>
         </a>
-        <a v-else="accepted" title="this answer was accepted as the best answer  "
+        <a v-else-if="accepted" title="this answer was accepted as the best answer  "
            :class="classes">
             <i class="fas fa-check fa-2x"></i>
         </a>

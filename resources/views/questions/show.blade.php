@@ -34,15 +34,11 @@
 
                             </div>
                         </div>
-                        @include('layouts._messages')
                         @include('answers._create')
                     </div>
                 </div>
             </div>
         </div>
-        @include('answers._index',[
-            'answers'=>$question->answers,
-            'answersCount' => $question->answers_count,
-         ])
+        <answers :answers="{{$question->answers}}" :count="{{$question->answers_count}}"></answers>
     </div>
 @endsection

@@ -16,7 +16,6 @@
                 favoritesCount : this.question.favorites_count,
                 favorited: this.question.favoritted,
                 questionId: this.question.id,
-                isSignedIn: window.auth.signedIn,
             }
         },
         methods:{

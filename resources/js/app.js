@@ -25,11 +25,10 @@ Vue.use(Authorization);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('user-info', require('./components/UserInfo.vue').default);
-Vue.component('answer', require('./components/Answer.vue').default);
 Vue.component('favorite',require('./components/Favorite.vue').default);
 Vue.component('question-vote',require('./components/QuestionVote.vue').default);
-Vue.component('answer-vote',require('./components/AnswerVote.vue').default);
-Vue.component('answer-accept',require('./components/AnswerAccept.vue').default);
+Vue.component('answers',require('./components/Answers.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

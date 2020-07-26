@@ -12,7 +12,10 @@ export default {
 
             }
 
-        }
+        };
+        Vue.prototype.isSignedIn = window.auth.signedIn;
+
+
     }
 }
 
