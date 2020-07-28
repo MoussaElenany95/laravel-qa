@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import EventBus from '../event-bus';
     export default {
         name: "AnswerAccept",
         props:['answer'],
@@ -21,6 +22,13 @@
                 status: this.answer.status,
             }
         },
+        created(){
+            EventBus.$on('accepted',id => {
+
+                this.status = ( id == this.answerId);
+            })
+        }
+        ,
         methods:{
             acceptAnswer(){
                 this.toggle();
@@ -29,6 +37,7 @@
                 }).catch(error => {
                     this.$toast.error("Accept / Unaccept answer unknown error  ",'Failed',{timeout:3000,position:"bottomCenter"})
                 })
+                EventBus.$emit('accepted',this.answerId);
             },
             toggle(){
                 return this.status? this.destroy():this.create();

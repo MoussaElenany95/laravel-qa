@@ -80,9 +80,8 @@
                         ['<button><b>YES</b></button>', (instance, toast) => {
                             axios.delete(`/questions/${this.questionId}/answers/${this.answerId}`)
                                  .then(res => {
-                                     $(this.$el).stop().fadeOut();
+                                     this.$emit('deleted');
                                      this.$toast.success(res.data.message,'Success',{ timeout:3000 });
-
                                  })
                                  .catch( err => {
 

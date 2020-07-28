@@ -5626,7 +5626,7 @@ __webpack_require__.r(__webpack_exports__);
         position: 'center',
         buttons: [['<button><b>YES</b></button>', function (instance, toast) {
           axios["delete"]("/questions/".concat(_this2.questionId, "/answers/").concat(_this2.answerId)).then(function (res) {
-            $(_this2.$el).stop().fadeOut();
+            _this2.$emit('deleted');
 
             _this2.$toast.success(res.data.message, 'Success', {
               timeout: 3000
@@ -5688,6 +5688,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -5701,6 +5702,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AnswerAccept",
   props: ['answer'],
@@ -5710,22 +5712,30 @@ __webpack_require__.r(__webpack_exports__);
       status: this.answer.status
     };
   },
+  created: function created() {
+    var _this = this;
+
+    _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('accepted', function (id) {
+      _this.status = id == _this.answerId;
+    });
+  },
   methods: {
     acceptAnswer: function acceptAnswer() {
-      var _this = this;
+      var _this2 = this;
 
       this.toggle();
       axios.post("/answers/".concat(this.answerId, "/accept")).then(function (res) {
-        _this.$toast.success("Accept / Unaccept answer  ", 'Success', {
+        _this2.$toast.success("Accept / Unaccept answer  ", 'Success', {
           timeout: 3000,
           position: "bottomCenter"
         });
       })["catch"](function (error) {
-        _this.$toast.error("Accept / Unaccept answer unknown error  ", 'Failed', {
+        _this2.$toast.error("Accept / Unaccept answer unknown error  ", 'Failed', {
           timeout: 3000,
           position: "bottomCenter"
         });
       });
+      _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('accepted', this.answerId);
     },
     toggle: function toggle() {
       return this.status ? this.destroy() : this.create();
@@ -5839,6 +5849,21 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Answer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Answer */ "./resources/js/components/Answer.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
 //
 //
 //
@@ -5858,7 +5883,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Answers",
-  props: ['answers', 'count'],
+  props: ['question'],
+  data: function data() {
+    return {
+      questionId: this.question.id,
+      count: this.question.answers_count,
+      answers: [],
+      nextUrl: null,
+      remaining: 0
+    };
+  },
+  created: function created() {
+    this.fetch("/questions/".concat(this.questionId, "/answers"));
+  },
+  methods: {
+    fetch: function fetch(endpoint) {
+      var _this = this;
+
+      axios.get(endpoint).then(function (_ref) {
+        var _this$answers;
+
+        var data = _ref.data;
+
+        (_this$answers = _this.answers).push.apply(_this$answers, _toConsumableArray(data.data));
+
+        console.log(data);
+        _this.remaining = _this.count - data.to;
+        _this.nextUrl = data.next_page_url;
+      });
+    },
+    remove: function remove(index) {
+      this.answers.splice(index, 1);
+      this.count--;
+    }
+  },
   computed: {
     title: function title() {
       return this.count + " " + (this.count > 1 ? "Answers" : "Answer");
@@ -42583,12 +42641,39 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _vm._l(_vm.answers, function(answer) {
+                _vm._l(_vm.answers, function(answer, index) {
                   return _c("answer", {
                     key: answer.id,
-                    attrs: { answer: answer }
+                    attrs: { answer: answer },
+                    on: {
+                      deleted: function($event) {
+                        return _vm.remove(index)
+                      }
+                    }
                   })
-                })
+                }),
+                _vm._v(" "),
+                _vm.nextUrl
+                  ? _c("div", { staticClass: "text-center mt-2" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-secondary",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.fetch(_vm.nextUrl)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "Load  " + _vm._s(_vm.remaining) + " more answers"
+                          )
+                        ]
+                      )
+                    ])
+                  : _vm._e()
               ],
               2
             )
@@ -55540,6 +55625,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserInfo_vue_vue_type_template_id_11f66ff8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/event-bus.js":
+/*!***********************************!*\
+  !*** ./resources/js/event-bus.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var eventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+/* harmony default export */ __webpack_exports__["default"] = (eventBus);
 
 /***/ }),
 

@@ -7,7 +7,10 @@
                         <h2>{{ title }}</h2>
                     </div>
                     <hr>
-                    <answer v-for="answer in answers " :answer="answer"  :key="answer.id"></answer>
+                    <answer @deleted="remove( index )" v-for=" ( answer,index) in answers " :answer="answer"  :key="answer.id"></answer>
+                    <div class="text-center mt-2" v-if="nextUrl">
+                        <button @click.prevent="fetch(nextUrl)" class="btn btn-outline-secondary">Load  {{remaining}} more answers</button>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -18,7 +21,34 @@
      import Answer from "./Answer";
      export default {
         name: "Answers",
-        props: ['answers','count'],
+        props: ['question'],
+        data(){
+            return{
+                questionId : this.question.id,
+                count :this.question.answers_count,
+                answers : [],
+                nextUrl: null,
+                remaining : 0,
+            }
+        } ,
+        created() {
+            this.fetch(`/questions/${this.questionId}/answers`);
+        },
+         methods:{
+            fetch(endpoint){
+                axios.get(endpoint)
+                     .then(({data})=> {
+                         this.answers.push(...data.data);
+                         console.log(data);
+                         this.remaining = this.count - data.to;
+                         this.nextUrl = data.next_page_url;
+                     })
+            },
+            remove(index){
+                 this.answers.splice(index,1);
+                 this.count --;
+            }
+        } ,
         computed:{
             title(){
                 return this.count +" "+ ( this.count > 1 ?"Answers":"Answer");
