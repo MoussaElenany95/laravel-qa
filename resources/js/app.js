@@ -28,6 +28,7 @@ Vue.component('user-info', require('./components/UserInfo.vue').default);
 Vue.component('favorite',require('./components/Favorite.vue').default);
 Vue.component('question-vote',require('./components/QuestionVote.vue').default);
 Vue.component('answers',require('./components/Answers.vue').default);
+Vue.component('new-answer',require('./components/NewAnswer').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

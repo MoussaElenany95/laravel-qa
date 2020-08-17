@@ -3,7 +3,7 @@
         <a href="" title="This question is useful" class="vote-up" @click.prevent="voteAnswer(1)">
             <i class="fas fa-caret-up fa-3x"></i>
         </a>
-        <span class="votes-count">{{votesCount}}</span>
+        <span class="votes-count">{{votesCount || 0}}</span>
         <a href="" title="This question is not useful" class="vote-down" @click.prevent="voteAnswer(-1)">
             <i class="fas fa-caret-down fa-3x"></i>
         </a>

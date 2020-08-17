@@ -34,7 +34,7 @@
 
                             </div>
                         </div>
-                        @include('answers._create')
+                        <new-answer :question-id="{{$question->id}}"></new-answer>
                     </div>
                 </div>
             </div>

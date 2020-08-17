@@ -41,11 +41,19 @@ class AnswersController extends Controller
     public function store(Question $question , Request $request)
     {
 
-        $question->answers()->create(
+        $answer = $question->answers()->create(
             ['user_id' => auth()->id()] +
             $request->validate([
-            'body'=>'required|min:5',
+            'body'=>'required|min:3',
         ]));
+
+        if ($request->expectsJson()){
+            return response()->json([
+                    "message" =>"Answer has been submitted",
+                    "answer"  => $answer->load('user')
+                 ]
+            );
+        }
         return  back()->with('success','Answer has been submitted');
     }
 

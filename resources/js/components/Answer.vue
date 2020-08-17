@@ -1,5 +1,5 @@
 <template>
-    <div class="media post" v-cloak>
+    <div class="media post" :id="'answer'+answerId" v-cloak>
         <div class="d-flex flex-column  vote-controls">
             <answer-vote :answer="answer"></answer-vote>
             <answer-accept :answer="answer"></answer-accept>

@@ -19,6 +19,7 @@
 
 <script>
      import Answer from "./Answer";
+     import EventBus from "../event-bus";
      export default {
         name: "Answers",
         props: ['question'],
@@ -33,13 +34,25 @@
         } ,
         created() {
             this.fetch(`/questions/${this.questionId}/answers`);
+            //When answer has created
+            EventBus.$on('answer_created',answer => {
+               this.answers.push(answer);
+               this.count++;
+               setTimeout( function(){
+
+                    document.getElementById('answer'+answer.id).scrollIntoView();
+                },500);
+            })
         },
          methods:{
             fetch(endpoint){
                 axios.get(endpoint)
                      .then(({data})=> {
-                         this.answers.push(...data.data);
-                         console.log(data);
+                         data.data.forEach(answer => {
+                                this.answers.push(answer);
+                         });
+                         //Or
+                         // this.answers.push(...data.data);
                          this.remaining = this.count - data.to;
                          this.nextUrl = data.next_page_url;
                      })
@@ -55,8 +68,6 @@
             }
         },
          components:{Answer}
-
-
     }
 </script>
 

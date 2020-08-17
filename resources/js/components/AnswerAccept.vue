@@ -24,7 +24,6 @@
         },
         created(){
             EventBus.$on('accepted',id => {
-
                 this.status = ( id == this.answerId);
             })
         }
