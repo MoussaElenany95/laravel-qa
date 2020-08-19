@@ -24,7 +24,7 @@ Vue.use(Authorization);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('question-page',require('./pages/QuestionPage.vue').default);
+Vue.component('question-page',require('./components/pages/QuestionPage.vue').default);
 
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Support\Facades\URL;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','photo'
     ];
     protected $appends = ['url','avatar'];
 
@@ -43,9 +43,8 @@ class User extends Authenticatable
     }
     //get avatar
     public function getAvatarAttribute(){
-        $email = $this->email;
-        $size = 40;
-        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
+
+        return URL::to('/')."/images/".$this->photo;
     }
     // one to many relationship between questions
     public function questions(){

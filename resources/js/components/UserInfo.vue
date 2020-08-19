@@ -2,10 +2,10 @@
     <div>
         <span class="text-muted">{{postDate}}</span>
         <div class="media mt-2">
-            <a :href="user.url" class="pr-2">
-                <img :src="user.avatar" alt="">
-            </a>
-            <div class="media-body mt-2">
+            <div class="media-body ">
+                <a :href="user.url" class="pr-2">
+                    <img class="user-img" :src="user.avatar" alt="">
+                </a>
                 <a :href="user.url">
                     {{user.name}}
                 </a>

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import Question from "../components/Question";
-    import Answers from "../components/Answers";
+    import Question from "../Question";
+    import Answers from "../Answers";
     export default {
         name: "QuestionPage",
         props:['question'],
