@@ -52,7 +52,7 @@
 
                    })
                }else{
-                   window.location.href ="/login";
+                   window.location.hrepf ="/login";
                }
             }
         }

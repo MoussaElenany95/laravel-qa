@@ -28,6 +28,7 @@
                 questionId : this.question.id,
                 count :this.question.answers_count,
                 answers : [],
+                answersIds:[],
                 nextUrl: null,
                 remaining : 0,
             }
@@ -37,6 +38,7 @@
             //When answer has created
             EventBus.$on('answer_created',answer => {
                this.answers.push(answer);
+               this.answersIds.push(answer.id);
                this.count++;
                setTimeout( function(){
 
@@ -48,8 +50,12 @@
             fetch(endpoint){
                 axios.get(endpoint)
                      .then(({data})=> {
+                         // to avoid repeated answer
                          data.data.forEach(answer => {
-                                this.answers.push(answer);
+                                   if( this.answersIds.indexOf(answer.id) === -1 ){
+                                       this.answersIds.push(answer.id);
+                                       this.answers.push(answer);
+                                   }
                          });
                          //Or
                          // this.answers.push(...data.data);
