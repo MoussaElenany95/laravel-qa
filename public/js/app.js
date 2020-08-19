@@ -5723,8 +5723,11 @@ __webpack_require__.r(__webpack_exports__);
     acceptAnswer: function acceptAnswer() {
       var _this2 = this;
 
-      this.toggle();
+      this.toggle(); // change color for current answer to unaccept
+
       axios.post("/answers/".concat(this.answerId, "/accept")).then(function (res) {
+        if (_this2.status) _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('accepted', _this2.answerId);
+
         _this2.$toast.success("Accept / Unaccept answer  ", 'Success', {
           timeout: 3000,
           position: "bottomCenter"
@@ -5735,7 +5738,6 @@ __webpack_require__.r(__webpack_exports__);
           position: "bottomCenter"
         });
       });
-      _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('accepted', this.answerId);
     },
     toggle: function toggle() {
       return this.status ? this.destroy() : this.create();
@@ -5897,7 +5899,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.count++;
       setTimeout(function () {
         document.getElementById('answer' + answer.id).scrollIntoView();
-      }, 500);
+      }, 200);
     });
   },
   methods: {

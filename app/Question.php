@@ -64,15 +64,18 @@ class Question extends Model
     }
     //Accept best answer
     public function acceptBestAnswer(Answer $answer){
-        if( $this->best_answer_id != $answer->id )
+        $accept = false;
+        if( $this->best_answer_id != $answer->id ) {
 
             $this->best_answer_id = $answer->id;
-
+            $accept = true;
+        }
         else
             $this->best_answer_id = NULL;         //Undo accept answer
 
-
         $this->save();
+
+        return $accept;
     }
 
 }

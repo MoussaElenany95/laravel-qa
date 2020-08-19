@@ -40,10 +40,10 @@
                this.answers.push(answer);
                this.answersIds.push(answer.id);
                this.count++;
-               setTimeout( function(){
 
+               setTimeout( function(){
                     document.getElementById('answer'+answer.id).scrollIntoView();
-                },500);
+                },200);
             })
         },
          methods:{

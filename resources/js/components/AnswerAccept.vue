@@ -30,13 +30,17 @@
         ,
         methods:{
             acceptAnswer(){
-                this.toggle();
+                this.toggle(); // change color for current answer to unaccept
                 axios.post(`/answers/${this.answerId}/accept`).then(res =>{
+
+                    if (this.status)
+                        EventBus.$emit('accepted',this.answerId);
+
                     this.$toast.success("Accept / Unaccept answer  ",'Success',{timeout:3000,position:"bottomCenter"})
+
                 }).catch(error => {
                     this.$toast.error("Accept / Unaccept answer unknown error  ",'Failed',{timeout:3000,position:"bottomCenter"})
                 })
-                EventBus.$emit('accepted',this.answerId);
             },
             toggle(){
                 return this.status? this.destroy():this.create();
