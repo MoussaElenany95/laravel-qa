@@ -15,3 +15,5 @@ Route::post('/answers/{answer}/vote','VoteAnswerController')->name('answers.vote
 Route::post('/questions/{question}/favorite','FavoriteQuestionController')->name('questions.favorite');
 Route::post('/questions/{question}/vote','VoteQuestionController')->name('questions.vote');
 Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show');
+
+Route::resource('users','UserController')->except('index');
