@@ -11026,3 +11026,12 @@ a.text-dark:focus {
   border: 2px solid #80E29D;
 }
 
+.user-img-link {
+  cursor: pointer;
+}
+
+.user-img-link:hover .user-img {
+  width: 200px;
+  height: 200px;
+}
+

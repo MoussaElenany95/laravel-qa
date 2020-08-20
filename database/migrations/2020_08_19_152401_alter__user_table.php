@@ -14,7 +14,9 @@ class AlterUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('username')->unique()->after('name');
             $table->string("photo")->after('email')->default("logo.png");
+
         });
     }
 

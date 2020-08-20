@@ -7,6 +7,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/users/{username}','UserController@show')->name('user.profile');
+
 Route::resource('questions','QuestionsController')->except('show');
 Route::resource('questions.answers','AnswersController');
 
@@ -16,4 +18,3 @@ Route::post('/questions/{question}/favorite','FavoriteQuestionController')->name
 Route::post('/questions/{question}/vote','VoteQuestionController')->name('questions.vote');
 Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show');
 
-Route::resource('users','UserController')->except('index');

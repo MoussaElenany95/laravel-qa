@@ -61,10 +61,25 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+    //Create default username
+    protected function setUsername($name)
+    {
+
+        $username = explode(' ',trim($name))[0];;
+        $i = 0;
+        while(User::where('username' , $username)->exists())
+        {
+            $i++;
+            $username = $username.$i;
+        }
+       return $username;
+    }
     protected function create(array $data)
     {
+        $username = $this->setUsername($data['name']);
         return User::create([
             'name' => $data['name'],
+            'username' => $username,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

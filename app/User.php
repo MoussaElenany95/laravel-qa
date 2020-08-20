@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','photo'
+        'name','username', 'email', 'password','photo'
     ];
     protected $appends = ['url','avatar'];
 
@@ -39,7 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function getUrlAttribute(){
-        return "#";
+        return "/users/".$this->username;
     }
     //get avatar
     public function getAvatarAttribute(){
