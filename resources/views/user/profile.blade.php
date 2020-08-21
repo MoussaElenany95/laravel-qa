@@ -76,7 +76,7 @@
                             @foreach($user->answers as $answer)
                                 <div class="row align-items-center" >
                                     <div class="col-8">
-                                        <h3><a href="{{$user->url}}">{{$user->name}}</a> answerd this <a href="{{$answer->question->url}}">question</a>:</h3>
+                                        <h3><a href="{{$user->url}}">{{$user->name}}</a> answerd {{$answer->question->user->username.'\'s '}} <a href="{{$answer->question->url}}">question</a>:</h3>
                                     </div>
                                     <div class="col-4">
                                         <h6 class="text-muted">{{$answer->created_date}}</h6>
