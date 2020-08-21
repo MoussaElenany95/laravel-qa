@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function show( $username )
     {
-       $user = User::whereUsername($username)->firstOrFail();
+       $user = User::with('answers.question')->whereUsername($username)->firstOrFail();
 
        return  view('user.profile',compact('user'));
     }
