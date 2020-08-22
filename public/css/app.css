@@ -11055,6 +11055,10 @@ a.text-dark:focus {
   color: #38c172;
 }
 
+.profile-menu ul a:hover {
+  color: #adb5bd;
+}
+
 .profile-menu ul a.active {
   color: #adb5bd;
 }

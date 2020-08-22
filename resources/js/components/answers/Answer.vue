@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-    import UserInfo from "./UserInfo";
+    import UserInfo from "../UserInfo";
     import AnswerVote from "./AnswerVote";
     import AnswerAccept from "./AnswerAccept";
     export default {

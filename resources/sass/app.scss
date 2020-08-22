@@ -103,10 +103,14 @@
         height: 50px;
         li{
             position: relative;;
+
         }
         a{
             text-decoration: none;
             color: $green;
+            &:hover{
+                color: $gray-500;
+            }
             &.active{
                 color: $gray-500;
             }

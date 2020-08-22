@@ -19,7 +19,7 @@
 
 <script>
      import Answer from "./Answer";
-     import EventBus from "../event-bus";
+     import EventBus from "../../event-bus";
      export default {
         name: "Answers",
         props: ['question'],

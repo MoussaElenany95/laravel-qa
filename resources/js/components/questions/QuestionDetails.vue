@@ -38,8 +38,8 @@
 </template>
 
 <script>
-    import NewAnswer from "./NewAnswer";
-    import UserInfo from "./UserInfo";
+    import NewAnswer from "../answers/NewAnswer";
+    import UserInfo from "../UserInfo";
     import QuestionVote from "./QuestionVote";
     import Favorite from "./Favorite";
     export default {
