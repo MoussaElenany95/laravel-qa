@@ -25,7 +25,8 @@ Vue.use(Authorization);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('question-page',require('./components/pages/QuestionPage.vue').default);
-Vue.component('Question',require('./components/questions/Question.vue').default);
+Vue.component('question',require('./components/questions/Question.vue').default);
+Vue.component('questions',require('./components/questions/Questions.vue').default);
 
 
 /**

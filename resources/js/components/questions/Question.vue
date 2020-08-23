@@ -117,7 +117,7 @@
                         ['<button><b>YES</b></button>', (instance, toast) => {
                             axios.delete(`/questions/${this.id}/`)
                                 .then( res =>{
-                                    this.$emit("delete",this.id);
+                                    this.$emit("deleted",this.id);
                                     $(this.$el).fadeOut(500);
                                     this.$toast.success(res.data.message,"Success",{timeout:3000});
                                 })
